@@ -40,6 +40,7 @@
                                         Tipe/ Spesifik</th>
                                     <th scope="col">Foto</th>
                                     <th scope="col">Jumlah Satuan</th>
+                                    <th scope="col">Sisa Barang</th>
                                     <th scope="col">Kondisi</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -60,6 +61,7 @@
                                                 <img src="{{ asset('fotobarang/' . $data->foto) }}"
                                                     style="width: 100px;" alt="...">
                                             </td>
+                                            <td> {{ $data->jumlah_awal }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->jumlah }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->kondisi }}</td>
                                             <td>

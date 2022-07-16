@@ -20,9 +20,9 @@ class BarangKeluar extends Model
 
     ];
 
-    public function barangs() // relasi tabel posisi ke kryawan
+    public function barangs() 
     {
-        return $this->belongsTo(Barang::class,'barangs_id'); //1 karyawan mempunyai 1 posisi
+        return $this->belongsTo(Barang::class,'barangs_id');
     }
 
     

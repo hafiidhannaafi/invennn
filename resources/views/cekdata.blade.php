@@ -3,7 +3,7 @@
 
 @section('title', 'asetbergerak')
 @section('asetbergerak', 'active')
-@section('forms-nav', 'show')
+@section('forms-nav', 'show') 
 
 <main id="main" class="main">
 
@@ -18,7 +18,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title"> Silakan Cek Data Barang</h5>
+                        <h5 class="card-title"> Silakan Cek Data Barang g</h5>
 
 
                         {{-- <a href="/data-asetbergerak/form" type="button"  class="btn btn" style="background-color:  #012970; color:#FFFFFF">Tambah</a> --}}

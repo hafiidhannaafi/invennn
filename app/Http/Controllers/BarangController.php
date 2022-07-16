@@ -436,13 +436,38 @@ class BarangController extends Controller
     {
         
         $inputbarang = \App\Models\Barang::find($id);
-        $inputbarang->update($request->all());
-        if($request->hasFile('foto'))
+        
+        // $inputbarang->update($request);
+         $inputbarang =new Barang();
+              $inputbarang->jenis_asets_id =$request->jenis_asets_id;
+              $inputbarang ->jenis_barangs_id = $request->jenis_barangs_id;
+             $inputbarang ->asal_perolehans_id = $request->asal_perolehans_id;
+            $inputbarang ->satuans_id = $request->satuans_id ;
+            $inputbarang ->kode = $request->kode;
+             $inputbarang ->spesifikasi= $request->spesifikasi;
+             $inputbarang ->foto = $request->foto;
+             $inputbarang ->kegunaan = $request->kegunaan;
+             $inputbarang ->tanggal_perolehan = $request->tanggal_perolehan;
+              $inputbarang->nilai_perolehan = $request->nilai_perolehan;
+              $inputbarang ->legalitas = $request->legalitas ;
+             $inputbarang ->luas= $request->luas;
+            $inputbarang ->beban_penyusutan = $request->beban_penyusutan;
+            $inputbarang ->nilai_buku = $request->nilai_buku ;
+             $inputbarang ->lokasi= $request->lokasi;
+             $inputbarang ->penanggung_jawab = $request->penanggung_jawab ;
+             $inputbarang ->jumlah_awal = $request->jumlah_awal;
+               $inputbarang ->jumlah = $request->jumlah_awal;
+             $inputbarang ->kondisi = $request->kondisi;
+               $inputbarang ->ket = $request->ket;
+
+        if($request->hasFile('foto')) 
         {
              $request->file('foto')->move('fotobarang/', $request->file('foto')->getClientOriginalName());
              $inputbarang->foto = $request->file('foto')->getClientOriginalName();
-             $inputbarang->save();
-            }
+             $inputbarang->update();
+        }
+    
+            
              if ($inputbarang->jenis_asets_id == 2)
              {
                    return redirect('/data-aset')->with('success', 'Data Berhasil Diupdate!');
@@ -459,11 +484,13 @@ class BarangController extends Controller
               {
                   return redirect('/data-perlengkapan')->with('success', 'Data Berhasil Diupdate!');
               }
+            
 
   
             
   
-    }
+    
+}
 
     //HAPUS DATA
     public function hapusdataaset($id)

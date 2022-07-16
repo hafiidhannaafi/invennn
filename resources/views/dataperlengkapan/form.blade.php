@@ -237,7 +237,7 @@
 
                                 <div class="row mb-3">
                                     <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah
-                                        awal</label>
+                                        Barang</label>
                                     <div class="col-sm-10">
                                         <input type="text" id="validationTooltip04" name="jumlah_awal"
                                             class="form-control" required>
@@ -248,13 +248,13 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-2 col-form-label">Jumlah</label>
+                                    {{-- <label for="inputText" class="col-sm-2 col-form-label">Jumlah</label> --}}
                                     <div class="col-sm-10">
-                                        <input type="text" name="jumlah" class="form-control">
+                                        <input type="hidden" name="jumlah" class="form-control">
                                     </div>
                                 </div>
 
-                              
+
 
                                 <div class="row mb-3">
                                     <label for="validationTooltip06" class="col-sm-2 col-form-label">Satuan</label>

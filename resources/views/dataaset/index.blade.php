@@ -8,14 +8,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        {{-- <h1>Data Jenis Aset</h1> --}}
-        {{-- <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
-        </ol>
-      </nav> --}}
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -39,8 +32,8 @@
                                     <th scope="col">Nama
                                         Tipe/ Spesifik</th>
                                     <th scope="col">Foto</th>
-                                    <th scope="col">Jumlah awal</th>
                                     <th scope="col">Jumlah Satuan</th>
+                                    <th scope="col">Sisa Barang</th>
                                     <th scope="col">Kondisi</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
@@ -61,7 +54,7 @@
                                                 <img src="{{ asset('fotobarang/' . $data->foto) }}"
                                                     style="width: 100px;" alt="...">
                                             </td>
-                                            <td> {{ $data->jumlah_awal }}</td>
+                                            <td> {{ $data->jumlah_awal }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->jumlah }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->kondisi }}</td>
                                             <td>

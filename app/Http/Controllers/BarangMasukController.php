@@ -158,7 +158,7 @@ class BarangMasukController extends Controller
             $barangmasuk->status = 1;
             $barangmasuk->save();
             $databarang= Barang::where('id', $barangmasuk->barangs_id)->first();
-            $databarang->jumlah += (int)$barangmasuk->jumlah_masuk;
+            $databarang->jumlah_awal += (int)$barangmasuk->jumlah_masuk;
             $databarang->save();
             return redirect('/barang-masuk')->with('success', 'Data Berhasil Dimasukkan!');
 

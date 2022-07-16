@@ -25,6 +25,7 @@ class PeminjamanController extends Controller
         $jenisbarang = JenisBarang::all();
         $datasatuan = Satuan::all();
         $inputbarang = Barang::all();
+         $jenisbarang = JenisBarang::all();
 
         // $akun = request()->user();
         // $a = User::where('users_id' , $akun->id)->get();
@@ -37,6 +38,7 @@ class PeminjamanController extends Controller
             "dataasalperolehan" => $dataasalperolehan,
             "datasatuan" =>$datasatuan,
             "inputbarang"=> $inputbarang,
+            "jenisbarang" => $jenisbarang
             // "akun"=> $akun,
             // "a"=>$a
         ]);
@@ -244,6 +246,7 @@ class PeminjamanController extends Controller
             $urutan++;
             $book_id = $huruf . sprintf("%04s", $urutan);
 
+       
         $barangs_id=array();
         $jumlah_pinjam=array();
 
@@ -271,12 +274,22 @@ class PeminjamanController extends Controller
         //     $dtpeminjaman ->jumlah_pinjam = $jumlah_pinjam[$i];
         //     $dtpeminjaman->save();
         // }
-for($i=0; $i< $jml; $i++)
+    for($i=0; $i< $jml; $i++)
         { $b = Barang::where('id',$barangs_id[$i])->first();
-            if($b->jumlah < $jumlah_pinjam[$i]){
-                        return redirect()->back()->with('warning', 'maaf jumlah barang yang anda pinjam melebihi stok');
+            if($b->jumlah < $jumlah_pinjam[$i])
+            {
+                        return redirect()->back()->with('warning', 'maaf jumlah barang yang anda pinjam melebihi dari sisa stok yang ada');
 
-            }else{
+            }
+            else
+            {
+                if($b->jenis_asets_id ==1 && $jumlah_pinjam[$i] > 1 || $b->jenis_asets_id ==3 && $jumlah_pinjam[$i] > 1 ){
+                        return redirect()->back()->with('warning', 'maaf barang bergerak, elektronik, peralatan max pinjam per item 1!');
+
+            }
+            
+            else
+            {
             $dtpeminjaman =new DetailPeminjaman();
             $dtpeminjaman->kode_peminjaman = $book_id;
             $dtpeminjaman->status_konfirmasis_id = $request->status_konfirmasis_id;
@@ -301,13 +314,18 @@ for($i=0; $i< $jml; $i++)
                  $peminjaman->surat_pinjam = $request->file('surat_pinjam')->getClientOriginalName();
                  $peminjaman->save();    
              }
+            
+ 
+    
         return redirect('/peminjaman/form')->with('success', 'Data Berhasil Ditambahkan!');
+               }
     }
+    
 
      public function download(Request $request, $surat_pinjam)
     {
         
-return response()->download(public_path('surat/'. $surat_pinjam));
+        return response()->download(public_path('surat/'. $surat_pinjam));
 
        
     }
@@ -385,10 +403,15 @@ return response()->download(public_path('surat/'. $surat_pinjam));
         }
         }
         return redirect()->back()->with('success', 'peminjaman selesai');
-
-
-
     }
+
+    // public function hapuspeminjaman($kode_peminjaman)
+    //     {
+    //     foreach Peminjaman::where('kode_peminjaman', $kode_peminjaman)->get()
+    //         $peminjaman= Peminjaman::find($id);
+    //         $peminjaman->delete();
+    //         return redirect('/pemi')->with('success', 'Data Berhasil Dihapus!');
+    //     }
 
 
 }

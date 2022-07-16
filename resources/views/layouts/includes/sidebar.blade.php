@@ -112,12 +112,7 @@
                  </ul>
              </li><!-- End Forms Nav -->
 
-             {{-- <li class="nav-item ">
-        <a class="nav-link collapsed" href="{{ url('/data-aset') }}">
-          <i class="bi bi-journal-text"></i>
-          <span>Data Aset</span>
-        </a>
-      </li> --}}
+
 
              <li class="nav-item">
                  <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -172,11 +167,7 @@
                      </li>
 
 
-                     {{-- <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li> --}}
+
                  </ul>
              </li><!-- End Charts Nav -->
 
@@ -192,23 +183,29 @@
                          </a>
                      </li>
 
-                     {{-- <li>
-            <a  href="icons-remix.html">
-              <i class="bi bi-circle"></i><span>Data Perpanjangan</span>
-            </a>
-          </li> --}}
+                     <li>
+                         <a class="@yield('riwayat')" href="{{ url('/peminjaman/riwayat') }}">
+                             <i class="bi bi-circle"></i><span>Riwayat Peminjaman</span>
+                         </a>
+                     </li>
 
                      {{-- <li>
-            <a  href="icons-boxicons.html">
-              <i class="bi bi-circle"></i><span>Data Perpanjangan</span>
-            </a>
-          </li> --}}
+                         <a href="icons-remix.html">
+                             <i class="bi bi-circle"></i><span>Data Pengembalian</span>
+                         </a>
+                     </li> --}}
+
+                     <li>
+                         <a href="icons-boxicons.html">
+                             <i class="bi bi-circle"></i><span>Data Perpanjangan</span>
+                         </a>
+                     </li>
 
                  </ul>
              </li><!-- End Icons Nav -->
 
              <li class="nav-item {{ request()->is('redirects*') ? 'active' : '' }}">
-                 <a class="nav-link collapsed" href="{{ url('/laporan') }}">
+                 <a class="nav-link collapsed" href="{{ url('/laporan/menu') }}">
                      <i class="bi bi-layout-text-window-reverse"></i>
                      <span>Laporan</span>
                  </a>

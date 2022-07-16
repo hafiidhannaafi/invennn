@@ -61,7 +61,7 @@
                                                 <img src="{{ asset('fotobarang/' . $data->foto) }}"
                                                     style="width: 100px;" alt="...">
                                             </td>
-                                            <td> {{ $data->jumlah_awal }}</td>
+                                            <td> {{ $data->jumlah_awal }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->jumlah }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->kondisi }}</td>
                                             <td>
@@ -128,7 +128,8 @@
                                                                                         class="col-lg-5 col-md-4 label">
                                                                                         Tipe</div>
                                                                                     <div class="col-lg-7 col-md-8">
-                                                                                        {{ $data->spesifikasi }}</div>
+                                                                                        {{ $data->spesifikasi }}
+                                                                                    </div>
                                                                                 </div>
 
                                                                                 <div class="row">

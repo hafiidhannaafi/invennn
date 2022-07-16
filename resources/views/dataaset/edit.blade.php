@@ -255,8 +255,8 @@
                                 <div class="row mb-3">
                                     <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah</label>
                                     <div class="col-sm-10">
-                                        <input type="text" value="{{ $inputbarang->jumlah }}" id=" "
-                                            name="jumlah" class="form-control" required>
+                                        <input type="text" value="{{ $inputbarang->jumlah_awal }}"
+                                            id=" " name="jumlah_awal" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Harus di isi
                                         </div>

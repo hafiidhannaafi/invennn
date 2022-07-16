@@ -35,8 +35,8 @@
                             <div class="row mb-3">
                                 <label for="validationCustom01" class="col-sm-2 col-form-label">Kode</label>
                                 <div class="col-sm-10">
-                                    <input type="text" value="{{ $inputbarang->kode }}" id=" " name="kode"
-                                        class="form-control" required>
+                                    <input type="text" value="{{ $inputbarang->kode }}" id=" "
+                                        name="kode" class="form-control" required>
                                     <div class="invalid-feedback">
                                         Harus di isi
                                     </div>
@@ -152,9 +152,10 @@
                                 <div class="col-sm-10">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Rp</span>
-                                        <input type="text" value="{{ $inputbarang->nilai_perolehan }}" id=" "
-                                            name="nilai_perolehan" class="form-control" placeholder="Username"
-                                            aria-label="Username" aria-describedby="basic-addon1" required>
+                                        <input type="text" value="{{ $inputbarang->nilai_perolehan }}"
+                                            id=" " name="nilai_perolehan" class="form-control"
+                                            placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"
+                                            required>
                                         <div class="invalid-feedback">
                                             Harus di isi
                                         </div>
@@ -232,10 +233,11 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah</label>
+                                    <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah
+                                        Barang</label>
                                     <div class="col-sm-10">
-                                        <input type="text" value="{{ $inputbarang->jumlah }}" id=" "
-                                            name="jumlah" class="form-control" required>
+                                        <input type="text" value="{{ $inputbarang->jumlah_awal }}"
+                                            id=" " name="jumlah_awal" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Harus di isi
                                         </div>
@@ -276,9 +278,11 @@
                                             <option value="Baik"
                                                 {{ $inputbarang->kondisi == 'Baik' ? 'selected' : '' }}>Baik</option>
                                             <option value="Cukup"
-                                                {{ $inputbarang->kondisi == 'Cukup' ? 'selected' : '' }}>Cukup</option>
+                                                {{ $inputbarang->kondisi == 'Cukup' ? 'selected' : '' }}>Cukup
+                                            </option>
                                             <option value="Tidak Baik"
-                                                {{ $inputbarang->kondisi == 'Tidak Baik' ? 'selected' : '' }}>Tidak Baik
+                                                {{ $inputbarang->kondisi == 'Tidak Baik' ? 'selected' : '' }}>Tidak
+                                                Baik
                                             </option>
                                         </select>
 

@@ -11,7 +11,9 @@ use App\Models\DataAsalPerolehan;
 use App\Models\Satuan;
 use App\Models\JenisBarang;
 use App\Models\Barangkeluar;
+use Barryvdh\DomPDF\Facade\PDF;
 use App\Models\BarangKeluar as ModelsBarangKeluar;
+
 
 class BarangKeluarController extends Controller
 {
@@ -76,20 +78,7 @@ class BarangKeluarController extends Controller
        
     }
 
-     public function sortir(Request $request){
-    
-        $startDate = Str::before($request->tglawal, ' -');
-        $endDate = Str::after($request->tglakhir, '- ');
-        switch ($request->submit) {
-            case 'table':
-
-                $barangkeluar = Barangkeluar::all()
-                    ->whereBetween('tanggal_keluar', [$startDate, $endDate]);
-             
-                return view('laporan.barangkeluar', compact( 'barangkeluar', 'startDate', 'endDate'));
-                break;
-        }
-    }
+  
 
     public function databarangkeluar()
     {
@@ -180,10 +169,64 @@ class BarangKeluarController extends Controller
             $barangkeluar->status = 1;
             $barangkeluar->save();
             $databarang= Barang::where('id', $barangkeluar->barangs_id)->first();
-            $databarang->jumlah -= (int)$barangkeluar->jumlah_keluar;
+            $databarang->jumlah_awal -= (int)$barangkeluar->jumlah_keluar;
             $databarang->save();
             return redirect('/barang-keluar')->with('success', 'Data Berhasil Dikeluarkan!');
 
         }
+
+        public function sortir (Request $request)
+        {
+        $dataasalperolehan = DataAsalPerolehan::all();
+            $datajenisaset = DataJenisAset::all();
+            $jenisbarang = JenisBarang::all();
+            $datasatuan = Satuan::all();
+            $inputbarang = Barang::all();
+            // $barangkeluar = Barangkeluar::all();
+            $startDate = ($request->tglawal);
+        $endDate = ($request->tglakhir);
+
+                $data =Barangkeluar::all()
+                    ->whereBetween('tanggal_keluar', [$startDate, $endDate]);
+            return view('laporan.barangkeluar',[
+                "title" => "barangkeluar",
+                "jenisbarang" => $jenisbarang,
+                "jenisaset" => $datajenisaset,
+                "dataasalperolehan" => $dataasalperolehan,
+                "datasatuan" =>$datasatuan,
+                "inputbarang"=> $inputbarang,
+                "data"=> $data,
+                "startDate" =>   $startDate,
+                 "endDate" =>   $endDate,
+
+            ]);
+
+        // $startDate = ($request->tglawal);
+        // $endDate = ($request->tglakhir);
+        //         $barangkeluar =Barangkeluar::all()
+        //             ->whereBetween('tanggal_keluar', [$startDate, $endDate]);
+
+        //   return view('pelakuusaha.datalaporan', compact('users','data', 'laporans','limbah','perusahaans', 'sumberlimbah', 'pihakketiga', 'trx_limbah', 'trx_pihakketiga'));
+      
+        // if (Auth()->user()->role == 0){
+        //     return view('pelakuusaha.datalaporan', compact('users','data', 'laporans','limbah','perusahaans', 'sumberlimbah', 'pihakketiga', 'trx_limbah', 'trx_pihakketiga'));
+        //     }
+        //     else{
+        //         abort(403);
+        //     }
+
+    }
+
+    public function cetakLaporan($start, $end){
+
+        $startDate = $start;
+        $endDate =$end;
+        $data =Barangkeluar::all()
+                    ->whereBetween('tanggal_keluar', [$startDate, $endDate]);
+        
+        $pdf = PDF::loadview('laporan.cetakbarangkeluar',['data' => $data])->setOptions(['defaultFont' => 'sans-serif'])->setPaper('a4', 'landscape');
+      
+         return $pdf->download('Laporan Data Barang Keluar.pdf');
+    }
 
 }

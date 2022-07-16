@@ -8,6 +8,7 @@
             console.log('sdfkjndipjgodkgdfgjdfgsdhjfdskfsdfjsdjfksd');
         });
     </script>
+
     <script>
         $(function() {
             $(document).on('click', '.btn-add', function(e) {
@@ -37,11 +38,47 @@
         });
     </script>
 
+
     <script>
         $(function() {
             $('.selectpicker').selectpicker();
         });
     </script>
+
+
+
+    {{-- <script type="text/javascript">
+        $(document).ready(function() {
+            $('select[name="select_jenisbarang"]').on('change', function() {
+                var jenisbarangID = $(this).val();
+                const PeminjamanForm = $('select[name="barangs_id[]"]');
+
+                PeminjamanForm.val(null);
+                $('select[name="barangs_id[]"]').html('<option value="">semua barang</option>');
+                if (jenisbarangID) {
+                    $.ajax({
+                        url: '/barang/select/' + jenisbarangID,
+                        type: "GET",
+                        dataType: "json",
+                        success: function(data) {
+
+                            $.each(data, function(key, value) {
+                                PeminjamanForm.append('<option value="' + value.id +
+                                    '">' +
+                                    value.nama_barang + '</option>');
+                            });
+
+
+                        }
+                    });
+                }
+            });
+        });
+    </script> --}}
+
+
+
+
 
     <style>
         input[type="date"] {
@@ -68,8 +105,8 @@
 
                 <!-- validation Form Elements -->
 
-                <form action="{{ route('inputpeminjaman') }}" method="POST" enctype="multipart/form-data"
-                    class=" needs-validation" novalidate>
+                <form name="PeminjamanForm" action="{{ route('inputpeminjaman') }}" method="POST"
+                    enctype="multipart/form-data" class=" needs-validation" novalidate>
                     @csrf
 
                     <div class="row mb-3">
@@ -98,6 +135,8 @@
                             </div>
                         </div>
                     </div>
+
+
 
 
                     <fieldset class="row mb-3">
@@ -218,14 +257,82 @@
                                 {{-- <h6 for="validationTooltip06" class="col-sm-6 col-form-label">( tekan tombol + jika
                                     barang yang dipinjam lebih dari 1)</h6> --}}
 
+
+                                {{-- <div class="form-group form-floating-label">
+                                    <label>Jenis Barang</label>
+                                    <select name="select_jenisbarang" class="form-control input-lg dynamic"
+                                        id="select_jenisbarang">
+                                        <option value=""></option>
+                                        @foreach ($jenisbarang as $data)
+                                            <option value="{{ $data->id }}">{{ $data->jenis_barang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div> --}}
+
                                 <div class="row entry my-2">
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             {{-- <select class="form-control selectpicker" id="select-country lstFruits" multiple="multiple" data-live-search="true" name="barangs_id" id="validationTooltip06" aria-label="Default select example"> --}}
                                             <select class="form-control selectpicker" data-live-search="true"
-                                                name="barangs_id[]" id="validationTooltip06"
+                                                name="barangs_id[]" id="barangs_id[]"
                                                 aria-label="Default select example">
                                                 {{-- <select class="form-select" name="barangs_id" id="validationTooltip06" aria-label="Default select example"> --}}
+                                                <option selected>Pilih Nama Barang</option>
+
+                                                @foreach ($inputbarang as $data)
+                                                    @if (($data->jenis_asets_id == 1 || $data->jenis_asets_id == 3 || $data->jenis_asets_id == 4) && $data->jumlah > 0)
+                                                        <option value="{{ $data->id }}"> {{ $data->kode }} -
+                                                            {{ $data->jenis_barangs->jenis_barang }}
+                                                            {{ $data->spesifikasi }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <input class="form-control form-control" value=" " name="jumlah_pinjam[]"
+                                            type="number" placeholder=" jumlah item ">
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-success btn-sm btn-add">
+                                            <i class="fa fa-plus" aria-hidden="true">+</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {{-- <div class="row g-3 mt-3 border-top pt-2">
+                        <div class="row targetDiv" id="div0">
+                            <div id="group1" class="fvrduplicate">
+                                <label for="validationTooltip06" class="col-sm-6 col-form-label">Barang Pinjam 2</label>
+                                <h6 for="validationTooltip06" class="col-sm-6 col-form-label">( tekan tombol + jika
+                                    barang yang dipinjam lebih dari 1)</h6>
+
+
+                                <div class="form-group form-floating-label">
+                                    <label>Jenis Barang</label>
+                                    <select name="select_jenisbarang" class="form-control input-lg dynamic"
+                                        id="select_jenisbarang">
+                                        <option value=""></option>
+                                        @foreach ($jenisbarang as $data)
+                                            <option value="{{ $data->id }}">{{ $data->jenis_barang }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="row entry my-2">
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+
+                                            <select class="form-control selectpicker" data-live-search="true"
+                                                name="barangs_id[]" id="barangs_id[]"
+                                                aria-label="Default select example">
+
                                                 <option selected>Pilih Nama Barang</option>
 
                                                 @foreach ($inputbarang as $data)
@@ -252,7 +359,14 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
+
+
+
+
+
+
+
                     <div class="card-footer">
                         <button style=" float :right; background-color:   #012970; color:#FFFFFF" type="submit"
                             class="btn btn">Submit</button>

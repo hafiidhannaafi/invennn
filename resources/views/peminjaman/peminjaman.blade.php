@@ -8,14 +8,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        {{-- <h1>Data Jenis Aset</h1> --}}
-        {{-- <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
-        </ol>
-      </nav> --}}
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -25,25 +18,20 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Riwayat Peminjaman</h5>
+                        <h5 class="card-title">Data Peminjaman</h5>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    {{-- <th scope="col">Nama </th> --}}
+                                    <th scope="col">Kode </th>
                                     <th scope="col">Nama </th>
-                                    <th scope="col">Jenis Peminjaman</th>
-                                    {{-- <th scope="col">Barang</th> --}}
-                                    <th scope="col">Kegunaan</th>
-                                    {{-- <th scope="col">Jumlah</th> --}}
                                     <th scope="col">Tgl Pengajuan</th>
-                                    <th scope="col">Tgl Peminjaman</th>
-                                    <th scope="col">Tgl Pengembalian</th>
-                                    {{-- <th scope="col">Surat</th> --}}
                                     <th scope="col">Detail</th>
-                                    <th scope="col">Status Konfirmasi</th>
+                                    <th scope="col">Status </th>
+                                    <th scope="col">verifikasi</th>
+                                    <th scope="col">Aksi</th>
 
                                 </tr>
                             </thead>
@@ -55,36 +43,68 @@
                                 @foreach ($peminjaman as $data)
                                     <tr>
                                         <th>{{ $nomor++ }}</th>
-                                        {{-- <td> {{ $data->users->name}}</td> --}}
+                                        <td> {{ $data->kode_peminjaman }}</td>
                                         <td> {{ $data->nama_peminjam }}</td>
-                                        <td> {{ $data->jenis_peminjaman }}</td>
-                                        {{-- <td> {{ $data->barangs->kode}} - {{ $data->barangs->jenis_barangs->jenis_barang}}  {{ $data->barangs->spesifikasi}} </td> --}}
-                                        <td>{{ $data->tujuan }}</td>
-                                        {{-- <td>{{ $data->jumlah_pinjam}}</td> --}}
                                         <td> <?php echo date('d F Y', strtotime($data->tgl_pengajuan)); ?> </td>
-                                        <td> <?php echo date('d F Y', strtotime($data->tgl_pinjam)); ?> </td>
-                                        <td>{{ $data->tgl_kembali }}</td>
                                         <td>
-                                            {{-- <button style =" float :right; background-color:   #012970; color:#FFFFFF" type="submit" class="btn btn" >Submit</button> --}}
                                             <a href="/detailbarang/{{ $data->kode_peminjaman }}"
-                                                style=" float :right; background-color:   #012970; color:#FFFFFF" button
-                                                type="button" class="btn btn-sm">Detail</a>
-                                        </td>
-                                        {{-- <td>{{ $data->surat_pinjam}}</td> --}}
-                                        @if ($data->status_konfirmasis_id == 1)
-                                            <td><span class="badge bg-secondary">
-                                                    {{ $data->status_konfirmasis->status_konfirmasi }}</span></td>
-                                        @elseif($data->status_konfirmasis_id == 2)
-                                            <td><span class="badge bg-success">
-                                                    {{ $data->status_konfirmasis->status_konfirmasi }}</span></td>
-                                        @elseif($data->status_konfirmasis_id == 3)
-                                            <td><span
-                                                    class="badge bg-danger">{{ $data->status_konfirmasis->status_konfirmasi }}</span>
-                                            </td>
-                                        @endif
-
+                                                style="  background-color:   #012970; color:#FFFFFF" button
+                                                type="button" class="btn btn-sm"><i class="bi bi-eye"></i></a>
                                         </td>
 
+                                        @php
+                                            $status = App\Models\DetailPeminjaman::where('kode_peminjaman', $data->kode_peminjaman)->first();
+                                        @endphp
+                                        <td>
+                                            @if ($status->status_konfirmasis_id == 1)
+                                                <span class="badge bg-secondary">
+                                                    {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                            @elseif($status->status_konfirmasis_id == 2)
+                                                <span class="badge bg-success">
+                                                    {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                            @elseif($status->status_konfirmasis_id == 3)
+                                                <span
+                                                    class="badge bg-danger">{{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                            @endif
+
+                                            <br>
+                                            @if ($status->status_konfirmasis_id == 2)
+                                                @if ($status->status_peminjamans_id == 1)
+                                                    <span class="badge bg-secondary">
+                                                        {{ $status->status_peminjamans->status_peminjamans }}</span>
+                                                @elseif($status->status_peminjamans_id == 2)
+                                                    <span class="badge bg"
+                                                        style="background-color: #FFA500; color:#FFFFFF">
+                                                        {{ $status->status_peminjamans->status_peminjamans }}</span>
+                                                @elseif($status->status_peminjamans_id == 3)
+                                                    <span
+                                                        class="badge bg-info">{{ $status->status_peminjamans->status_peminjamans }}</span>
+                                                @endif
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            @if ($status->status_konfirmasis_id == 2)
+                                                <!--STATUS PEMINJAMAN  -->
+                                                <a href="/status_barangdiambil/{{ $data->kode_peminjaman }}"
+                                                    type="button" class="btn btn btn-sm"
+                                                    style="background-color: #FFA500; color:#FFFFFF"><i
+                                                        class="bi bi-bag-check-fill"></i></a>
+                                                <!--STATUS PENGEMBALIAN-->
+                                                <a href="/status_kembali/{{ $data->kode_peminjaman }}" type="button"
+                                                    class="btn btn-info btn-sm"><i
+                                                        class="bi bi-person-check-fill"></i></a>
+                                            @elseif ($status->status_peminjamans_id == 3 && $status->status_konfirmasis_id == 2)
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="/peminjaman/edit/{{ $data->id }}" type="button"
+                                                class="btn btn-sm" style="background-color: #05b3c3; color:#FFFFFF"><i
+                                                    class="bi bi-pencil"></i></a>
+                                            <a href="/peminjaman/hapus/{{ $data->id }}"
+                                                onclick="return confirm('Hapus Data?')" type="button"
+                                                class="btn btn-danger btn-sm"><i class="bi bi-trash delete"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -309,12 +309,18 @@ Route::get('/laporan/asettidakbergerak', [BarangController::class, 'laporanasett
 Route::get('/laporan/perlengkapan', [BarangController::class, 'laporanasetperlengkapan']);
 Route::get('/laporan/peralatan', [BarangController::class, 'laporanasetperalatan']);
 Route::post('laporan/barangkeluar', 'App\Http\Controllers\BarangKeluarController@sortir')->name('barangkeluar');
-Route::get('/laporan', function () {
+Route::get('/laporan/menu', function () {
     return view('laporan.menu');
 });
 
+
+Route::post('/filter', 'App\Http\Controllers\BarangKeluarController@sortir');
+Route::get('/laporanbarangkeluar/{start}/{end}', 'App\Http\Controllers\BarangKeluarController@cetakLaporan');
+
 //STATUS USER
 Route::get('/ubah/status/{id}', 'App\Http\Controllers\UserController@ubahstatus');
+
+
 
 
 
