@@ -224,7 +224,7 @@ Route::get('/data-aset/hapusdataaset/{id}', 'App\Http\Controllers\BarangControll
 Route::get('/data-asetbergerak/form', [BarangController::class, 'formasetbergerak']); 
 Route::get('/data-asetbergerak', [BarangController::class, 'dataasetbergerak']); 
 Route::get('/data-asetbergerak/edit/{id}', 'App\Http\Controllers\BarangController@editasetbergerak')->name('editasetbergerak');
-Route::post('/data-asetbergerak/update/{id}', 'App\Http\Controllers\BarangController@update')->name('update');
+Route::post('/data-asetbergerak/update/{id}', 'App\Http\Controllers\BarangController@update')->name('data-asetbergerak.update');
 Route::get('/data-asetbergerak/hapus/{id}', 'App\Http\Controllers\BarangController@hapusasetbergerak')->name('hapusasetbergerak');
 
 //DATA ASET PERALATAN
@@ -265,24 +265,40 @@ Route::get('/barang-keluar/status_keluar/{id}', 'App\Http\Controllers\BarangKelu
 //PEMINJAMAN//
 Route::POST('inputpeminjaman', 'App\Http\Controllers\PeminjamanController@create')->name('inputpeminjaman');
 Route::get('/peminjaman/form', [PeminjamanController::class, 'index']); 
-Route::get('/peminjaman/riwayat', [PeminjamanController::class, 'peminjaman']); 
+
 Route::get('/peminjaman/edit/{id}', 'App\Http\Controllers\PeminjamanController@editpeminjaman')->name('editpeminjaman');
 Route::post('/peminjaman/update/{id}', 'App\Http\Controllers\PeminjamanController@updatepeminjaman')->name('updatepeminjaman');
 Route::get('/peminjaman/hapus/{id}', 'App\Http\Controllers\PeminjamanController@hapuspeminjaman')->name('hapuspeminjaman');
+
+//PEMINJAMAN//STATUS
 Route::get('/status_setuju/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_setuju');
 Route::get('/status_ditolak/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_ditolak');
+Route::get('/status_pengajuan/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_pengajuan');
+Route::get('/status_batal/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_batal');
 Route::get('/status_barangdiambil/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_barangdiambil');
 Route::get('/status_kembali/{kode_peminjaman}', 'App\Http\Controllers\PeminjamanController@status_kembali');
+Route::get('/peminjaman/konfirmasi/{id}', [PeminjamanController::class, 'detail_konfirmasi']); 
  
 //RIWAYAT PEMINJAM staff
 Route::get('/staff/peminjaman', [PeminjamanController::class, 'peminjamanstaff']); 
 Route::get('/staff/riwayat', [PeminjamanController::class, 'riwayatstaff']); 
 Route::get('/download/{surat_pinjam}', [PeminjamanController::class, 'download']); 
 Route::get('/detailbarang/{id}', [PeminjamanController::class, 'detail_barang']); 
+Route::get('/detailriwayat/{id}', [PeminjamanController::class, 'detail_riwayat']); 
+
 
 
 //RIWAYAT PEMINJAM admin
-Route::get('/peminjaman/peminjaman', [PeminjamanController::class, 'riwayat']); 
+Route::get('/peminjaman/peminjaman', [PeminjamanController::class, 'peminjamanadmin']); 
+Route::get('/peminjaman/riwayat', [PeminjamanController::class, 'riwayatadmin']);
+Route::get('/detailbarangadmin/{id}', [PeminjamanController::class, 'detail_barang_admin']);  
+Route::get('/detailriwayatadmin/{id}', [PeminjamanController::class, 'detail_riwayat_admin']);  
+
+
+//RIWAYAT PEMINJAM kepala unit
+Route::get('/kepalaunit/pengajuan', [PeminjamanController::class, 'pengajuan']); 
+Route::get('/detailpengajuan/{id}', [PeminjamanController::class, 'detail_pengajuan']); 
+
 
 //PENCATATAN STOK/BARANG KELUAR kepala unit
 Route::get('/pencatatan/barangkeluar', [BarangKeluarController::class, 'databarangkeluar']); 
@@ -291,7 +307,8 @@ Route::get('/pencatatan/barangkeluar', [BarangKeluarController::class, 'databara
 Route::get('/pencatatan/barangmasuk', [BarangMasukController::class, 'databarangmasuk']); 
 
 //DATA ASET kepala unit dan staff
-Route::get('/cekdata', [BarangController::class, 'cekdata']); 
+Route::get('/cekdata', [BarangController::class, 'cekdata']);
+Route::get('/aset/bergerak', [BarangController::class, 'asetbergerak']);  
 Route::get('/aset/tidakbergerak', [BarangController::class, 'asettidakbergerak']); 
 Route::get('/aset/peralatan', [BarangController::class, 'asetperalatan']); 
 Route::get('/aset/perlengkapan', [BarangController::class, 'asetperlengkapan']); 

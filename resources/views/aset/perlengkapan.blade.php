@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('content')
 
-@section('title', 'perlengkapan')
-@section('perlengkapan', 'active')
-@section('forms-nav', 'show')
+@section('title', 'asetperlengkapan')
+@section('asetperlengkapan', 'active')
+@section('formsss-nav', 'show')
 
 <main id="main" class="main">
 
@@ -27,21 +27,22 @@
                     <div class="card-body">
                         <h5 class="card-title">Data Aset Perlengkapan</h5>
 
-                        {{-- <a href="/data-perlengkapan/form" type="button"  class="btn btn" style="background-color:  #012970; color:#FFFFFF">Tambah</a> --}}
+                        <a href="/data-perlengkapan/form" type="button" class="btn btn-sm"
+                            style="background-color:  #012970; color:#FFFFFF">Tambah</a>
+
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">
-                                        Nama barang
-                                    </th>
+                                    <th scope="col">Kode</th>
+                                    <th scope="col">Nama
+                                        Tipe/ Spesifik</th>
                                     <th scope="col">Foto</th>
+                                    <th scope="col">Jumlah awal</th>
                                     <th scope="col">Jumlah Satuan</th>
-                                    {{-- <th scope="col">Kondisi</th> --}}
-                                    <th scope="col">Detail</th>
-                                    <th scope="col">sisa barang</th>
-                                    <th scope="col">status</th>
+                                    <th scope="col">Kondisi</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
                             </thead>
 
@@ -53,24 +54,25 @@
                                     @if ($data->jenis_asets_id == 4)
                                         <tr>
                                             <th> {{ $nomor++ }}</th>
-                                            <td> {{ $data->kode }}
-                                                {{ $data->jenis_barangs->jenis_barang }} {{ $data->spesifikasi }}
+                                            <td> {{ $data->kode }}</td>
+                                            <td> {{ $data->jenis_barangs->jenis_barang }} {{ $data->spesifikasi }}
                                             </td>
                                             <td>
                                                 <img src="{{ asset('fotobarang/' . $data->foto) }}"
                                                     style="width: 100px;" alt="...">
                                             </td>
+                                            <td> {{ $data->jumlah_awal }} {{ $data->satuans->nama_satuan }}</td>
                                             <td> {{ $data->jumlah }} {{ $data->satuans->nama_satuan }}</td>
-                                            {{-- <td> {{ $data->kondisi}}</td> --}}
+                                            <td> {{ $data->kondisi }}</td>
                                             <td>
 
                                                 <!-- Large Modal -->
 
-                                                <button type="button" class="btn btn"
+                                                <button type="button" class="btn btn-sm"
                                                     style="background-color:  #012970; color:#FFFFFF"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modaldetail{{ $data->id }}">
-                                                    <i class="bi bi-info"></i>
+                                                    <i class="bi bi-eye"></i>
                                                 </button>
 
                                                 <div class="modal fade" id="modaldetail{{ $data->id }}"
@@ -152,8 +154,7 @@
                                                                                         class="col-lg-5 col-md-4 label">
                                                                                         Tgl Perolehan</div>
                                                                                     <div class="col-lg-7 col-md-8">
-                                                                                        {{ $data->tanggal_perolehan }}
-                                                                                    </div>
+                                                                                        <?php echo date('d F Y', strtotime($data->tanggal_perolehan)); ?></div>
                                                                                 </div>
 
                                                                                 <div class="row">
@@ -275,16 +276,8 @@
                                                 </div>
                     </div>
                 </div><!-- End Large Modal-->
-                <td>
-                    @if ($data->jumlah <= 0)
-                        <a href=" " type="button" class="btn btn-danger"> Penuh</a>
-                    @else
-                    @endif
-                </td>
 
 
-                {{-- <a href="/data-perlengkapan/edit/{{$data->id}}" type="button" class="btn btn" style="background-color: #05b3c3; color:#FFFFFF"><i class="bi bi-pencil"></i></a>
-              <a href="/data-perlengkapan/hapus/{{$data->id}}" onclick="return confirm('Hapus Data?')" type="button" class="btn btn-danger"><i class="bi bi-trash delete"></i></a> --}}
                 </td>
                 @endif
                 @endforeach

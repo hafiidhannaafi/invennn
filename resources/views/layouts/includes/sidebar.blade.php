@@ -195,11 +195,7 @@
                          </a>
                      </li> --}}
 
-                     <li>
-                         <a href="icons-boxicons.html">
-                             <i class="bi bi-circle"></i><span>Data Perpanjangan</span>
-                         </a>
-                     </li>
+
 
                  </ul>
              </li><!-- End Icons Nav -->
@@ -211,61 +207,6 @@
                  </a>
              </li>
 
-             {{-- <li class="nav-item"  href="{{ url('/laporan/asetbergerak') }}">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" >
-          <i class="bi bi-layout-text-window-reverse"></i><span>Laporan</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav"> --}}
-             {{-- <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Data peminjam</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Data kepala unit</span>
-            </a>
-          </li> --}}
-
-             {{-- <li>
-            <a href="{{ url('/laporan/barangkeluar') }}">
-              <i class="bi bi-circle"></i><span> Barang Keluar</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{{ url('/laporan/barangmasuk') }}">
-              <i class="bi bi-circle"></i><span> Barang Masuk</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{{ url('/laporan/asetbergerak') }}">
-              <i class="bi bi-circle"></i><span> Data aset bergerak</span>
-            </a>
-          </li> --}}
-
-             {{-- <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Data aset tidak bergerak</span>
-            </a>
-          </li>
-
-          <li>
-            <a  href="tables-data.html">
-              <i class="bi bi-circle"></i><span> Data aset peralatan</span>
-            </a>
-          </li>
-
-          <li>
-            <a  href="tables-data.html">
-              <i class="bi bi-circle"></i><span> Data aset perlengkapan</span>
-            </a>
-          </li> --}}
-
-             {{-- </ul>
-      </li> --}}
 
 
          </ul>
@@ -288,7 +229,7 @@
              </li>
 
              <li class="nav-item ">
-                 <a class="nav-link collapsed" href="{{ url('/peminjaman/riwayat') }}">
+                 <a class="nav-link collapsed" href="{{ url('/kepalaunit/pengajuan') }}">
                      <i class="bi bi-menu-button-wide"></i>
                      <span>Data Pengajuan</span>
                  </a>
@@ -296,28 +237,29 @@
 
 
              <li class="nav-item">
-                 <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                 <a class="nav-link collapsed" data-bs-target="#formsss-nav" data-bs-toggle="collapse"
+                     href="#">
                      <i class="bi bi-journal-text"></i><span>Data Aset</span><i
                          class="bi bi-chevron-down ms-auto"></i>
                  </a>
-                 <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                 <ul id="formsss-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                      <li>
-                         <a class="active" href="/aset/bergerak">
+                         <a class=" @yield('asetbergerak')" href="/aset/bergerak">
                              <i class="bi bi-circle"></i><span>Data Aset Bergerak</span>
                          </a>
                      </li>
                      <li>
-                         <a class="active" href="/aset/tidakbergerak">
+                         <a class=" @yield('asettidakbergerak')" href="/aset/tidakbergerak">
                              <i class="bi bi-circle"></i><span>Data Aset Tidak Bergerak</span>
                          </a>
                      </li>
                      <li>
-                         <a class="active" href="/aset/peralatan">
+                         <a class=" @yield('asetperalatan')" href="/aset/peralatan">
                              <i class="bi bi-circle"></i><span>Data Peralatan</span>
                          </a>
                      </li>
                      <li>
-                         <a class="active" href="/aset/perlengkapan">
+                         <a class=" @yield('asetperlengkapan')"href="/aset/perlengkapan">
                              <i class="bi bi-circle"></i><span>Data Perlengkapan</span>
                          </a>
                      </li>
@@ -346,46 +288,16 @@
                  </ul>
              </li><!-- End Charts Nav -->
 
-             <li class="nav-item">
-                 <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse"
-                     href="#">
-                     <i class="bi bi-layout-text-window-reverse"></i><span>Laporan</span><i
-                         class="bi bi-chevron-down ms-auto"></i>
+             <li class="nav-item {{ request()->is('redirects*') ? 'active' : '' }}">
+                 <a class="nav-link collapsed" href="{{ url('/laporan/menu') }}">
+                     <i class="bi bi-layout-text-window-reverse"></i>
+                     <span>Laporan</span>
                  </a>
-                 <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-
-                     {{-- <li>
-            <a class="active" href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Data Aset</span>
-            </a>
-          </li>
-
-          <li>
-            <a class="active" href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Barang Masuk</span>
-            </a>
-          </li>
-
-          <li>
-            <a class="active" href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Barang Rusak</span>
-            </a>
-          </li>
-
-          <li>
-            <a class="active" href="tables-general.html">
-              <i class="bi bi-circle"></i><span> Barang Hilang</span>
-            </a>
-          </li>
-
-          <li>
-            <a  href="tables-data.html">
-              <i class="bi bi-circle"></i><span> Peminjaman</span>
-            </a>
-          </li> --}}
-
-                 </ul>
              </li>
+
+
+         </ul>
+         </li>
 
 
          </ul>

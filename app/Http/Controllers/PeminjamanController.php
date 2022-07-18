@@ -17,7 +17,7 @@ use App\Models\User;
 
 class PeminjamanController extends Controller
 {
-    //MENAMPILKAN DATA MASTER KE FORM
+    //MENAMPILKAN DATA MASTER KE FORM //STAFF
     public function index()
     {
         $dataasalperolehan = DataAsalPerolehan::all();
@@ -25,11 +25,8 @@ class PeminjamanController extends Controller
         $jenisbarang = JenisBarang::all();
         $datasatuan = Satuan::all();
         $inputbarang = Barang::all();
-         $jenisbarang = JenisBarang::all();
+        $jenisbarang = JenisBarang::all();
 
-        // $akun = request()->user();
-        // $a = User::where('users_id' , $akun->id)->get();
-        // $akun = User::all();
 
         return view('peminjaman.form',[
             "title" => "riwayat",
@@ -39,36 +36,13 @@ class PeminjamanController extends Controller
             "datasatuan" =>$datasatuan,
             "inputbarang"=> $inputbarang,
             "jenisbarang" => $jenisbarang
-            // "akun"=> $akun,
-            // "a"=>$a
+            
         ]);
        
     }
 
-    //MENAMPILKAN DATA MASTER KE FORM
-    public function peminjaman()
-    {
-        $dataasalperolehan = DataAsalPerolehan::all();
-        $datajenisaset = DataJenisAset::all();
-        $jenisbarang = JenisBarang::all();
-        $datasatuan = Satuan::all();
-        $inputbarang = Barang::all();
-       $peminjaman = Peminjaman::latest()->get();
-        $akun = User::all();
-        return view('peminjaman.riwayat',[
-            "title" => "riwayat",
-            "jenisbarang" => $jenisbarang,
-            "jenisaset" => $datajenisaset,
-            "dataasalperolehan" => $dataasalperolehan,
-            "datasatuan" =>$datasatuan,
-            "inputbarang"=> $inputbarang,
-            "peminjaman"=> $peminjaman,
-            "akun" => $akun
-        ]);
-       
-    }
 
-    //MENAMPILKAN DATA MASTER KE FORM
+    //MENAMPILKAN DATA PEMINJAMAN //STAFF
     public function peminjamanstaff()
     {
         $dataasalperolehan = DataAsalPerolehan::all();
@@ -79,11 +53,10 @@ class PeminjamanController extends Controller
         $kode_peminjaman = request()->user();
          $status = DetailPeminjaman::where('kode_peminjaman' , $kode_peminjaman)->get();
         // $akun = User::all();
-
         $akun = request()->user();
         $peminjaman = Peminjaman::where('users_id' , $akun->id)->latest()->get();
+         
       
-
         return view('staff.peminjaman',[
             "title" => "pengajuan",
             "jenisbarang" => $jenisbarang,
@@ -91,9 +64,11 @@ class PeminjamanController extends Controller
             "dataasalperolehan" => $dataasalperolehan,
             "datasatuan" =>$datasatuan,
             "inputbarang"=> $inputbarang,
+           
             "peminjaman"=> $peminjaman,
             "akun"=> $akun,
-            "status" => $status
+            "status" => $status,
+           
         ]);
        
     }
@@ -111,8 +86,7 @@ class PeminjamanController extends Controller
 
         $akun = request()->user();
         $peminjaman = Peminjaman::where('users_id' , $akun->id)->latest()->get();
-      
-
+       
         return view('staff.riwayat',[
             "title" => "pengajuan",
             "jenisbarang" => $jenisbarang,
@@ -122,13 +96,37 @@ class PeminjamanController extends Controller
             "inputbarang"=> $inputbarang,
             "peminjaman"=> $peminjaman,
             "akun"=> $akun,
-            "status" => $status
+           
         ]);
        
     }
 
-    //MENAMPILKAN DATA MASTER KE FORM
-    public function riwayat()
+     public function detail_barang($id)
+    {
+        $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
+        $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
+        return view('staff.data_peminjaman',[
+            "title" => "pengajuan",
+            "data" => $data,
+            "peminjaman" => $peminjaman,
+        ]);
+       
+    }
+
+     public function detail_riwayat($id)
+    {
+        $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
+        $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
+        return view('staff.data_riwayat',[
+            "title" => "pengajuan",
+            "data" => $data,
+            "peminjaman" => $peminjaman,
+        ]);
+       
+    }
+
+    //MENAMPILKAN DATA PEMINJAMAN //ADMIN
+    public function peminjamanadmin()
     {
         $dataasalperolehan = DataAsalPerolehan::all();
         $datajenisaset = DataJenisAset::all();
@@ -149,8 +147,30 @@ class PeminjamanController extends Controller
         ]);
        
     }
-    
-        public function detail_barang($id)
+
+    public function riwayatadmin()
+    {
+        $dataasalperolehan = DataAsalPerolehan::all();
+        $datajenisaset = DataJenisAset::all();
+        $jenisbarang = JenisBarang::all();
+        $datasatuan = Satuan::all();
+        $inputbarang = Barang::all();
+        $akun = User::all();
+        $peminjaman = Peminjaman::latest()->get();
+        return view('peminjaman.riwayat',[
+            "title" => "pengajuan",
+            "jenisbarang" => $jenisbarang,
+            "jenisaset" => $datajenisaset,
+            "dataasalperolehan" => $dataasalperolehan,
+            "datasatuan" =>$datasatuan,
+            "inputbarang"=> $inputbarang,
+            "peminjaman"=> $peminjaman,
+            "akun"=> $akun
+        ]);
+       
+    }
+
+    public function detail_barang_admin($id)
     {
         $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
         $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
@@ -162,81 +182,71 @@ class PeminjamanController extends Controller
        
     }
 
-
-    // INPUT PEMINJAMAN
-    // public function create(Request $request)
-    // {
-
-    //     $peminjaman = \App\Models\Peminjaman::create($request->all());
-    //     if($request->hasFile('surat_pinjam'))
-    //     {
-    //          $request->file('surat_pinjam')->move('surat/', $request->file('surat_pinjam')->getClientOriginalName());
-    //          $peminjaman->surat_pinjam = $request->file('surat_pinjam')->getClientOriginalName();
-    //          $peminjaman->save();    
-    //      }
-    //      return redirect('/peminjaman/form')->with('success', 'Data Berhasil Ditambahkan!');
-            
-
-    // }
-
-    
-    // public function create(Request $request)
-    // {
-    //     $barangs=array();
-    //     $jumlahs=array();
-
-    //     foreach($request->$barangs as $i)
-    //     {
-    //         array_push($barangs,$i);
-    //     }
-     
-    //     foreach($request->$jumlahs as $i)
-    //     {
-    //         array_push($jumlahs,$i);
-    //     }
+    public function detail_riwayat_admin($id)
+    {
+        $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
+        $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
+        return view('peminjaman.data_riwayat',[
+            "title" => "pengajuan",
+            "data" => $data,
+            "peminjaman" => $peminjaman,
+        ]);
        
-    //     for($i=0; $i<sizeof($barangs); $i++)
-    //     $this->validate($request, [
-            // 'barangs_id' => ['required', 'string', 'max:255'],
-            // 'status_konfirmasis_id' => ['required', 'string', 'max:255'],
-            // 'status_peminjamans_id' => ['required', 'string', 'max:255'],
-            // 'users_id' => ['required', 'string', 'max:255'],
-            // 'nama_peminjam' => ['required', 'string', 'max:255'],
-            // 'jenis_peminjaman' => ['required', 'string', 'max:255'],
-            // 'tujuan' => ['required', 'string', 'max:255'],
-            // 'jumlah_pinjam' => ['required', 'string', 'max:255'],
-            // 'tgl_pengajuan' => ['required', 'string', 'max:255'],
-            // 'tgl_pinjam' => ['required', 'string', 'max:255'],
-            // 'tgl_kembali' => ['required', 'string', 'max:255'],
-            // 'surat_pinjam' => ['required', 'string', 'max:255']
+    }
 
-    //     ]);
+    //MENAMPILKAN  PEMINJAMAN// KEPALA UNIT
+    public function pengajuan()
+    {
+        $dataasalperolehan = DataAsalPerolehan::all();
+        $datajenisaset = DataJenisAset::all();
+        $jenisbarang = JenisBarang::all();
+        $datasatuan = Satuan::all();
+        $inputbarang = Barang::all();
+       $peminjaman = Peminjaman::latest()->get();
+        $akun = User::all();
+        return view('kepalaunit.pengajuan',[
+            "title" => "riwayat",
+            "jenisbarang" => $jenisbarang,
+            "jenisaset" => $datajenisaset,
+            "dataasalperolehan" => $dataasalperolehan,
+            "datasatuan" =>$datasatuan,
+            "inputbarang"=> $inputbarang,
+            "peminjaman"=> $peminjaman,
+            "akun" => $akun
+        ]);
+       
+    }
+
+     public function detail_pengajuan($id)
+    {
+        $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
+        $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
+        return view('kepalaunit.data_pengajuan',[
+            "title" => "pengajuan",
+            "data" => $data,
+            "peminjaman" => $peminjaman,
+        ]);
+       
+    }
+
+    public function detail_konfirmasi($id)
+    {
+        $data = DetailPeminjaman::where('kode_peminjaman', $id)->get(); //kode_peminjaman = $id didapatkan
+        $peminjaman = Peminjaman::where('kode_peminjaman', $id)->get();
+        return view('peminjaman.konfirmasi',[
+            "title" => "pengajuan",
+            "data" => $data,
+            "peminjaman" => $peminjaman,
+        ]);
+       
+    }
+
+   
       
-    //         $peminjaman = new Peminjaman();
-    //         $peminjaman ->barangs[$i] = $request->input('barangs_id');
-    //         $peminjaman ->status_konfirmasis_id = $request->input('status_konfirmasis_id');
-    //         $peminjaman ->status_peminjamans_id = $request->input('status_peminjamans_id');
-            // $peminjaman ->users_id = $request->input('users_id');
-            // $peminjaman ->nama_peminjam = $request->input('nama_peminjam');
-            // $peminjaman ->jenis_peminjaman = $request->input('jenis_peminjaman');
-            // $peminjaman ->tujuan = $request->input('tujuan');
-            // $peminjaman ->jumlahs[$i] = $request->input('jumlah_pinjam');
-            // $peminjaman ->tgl_pengajuan= $request->input('tgl_pengajuan');
-            // $peminjaman ->tgl_pinjam = $request->input('tgl_pinjam');
-            // $peminjaman ->tgl_kembali = $request->input('tgl_kembali');
-            // $peminjaman ->surat_pinjam = $request->input('surat_pinjam');
-
-            // if($request->hasFile('surat_pinjam'))
-            // {
-            //      $request->file('surat_pinjam')->move('surat/', $request->file('surat_pinjam')->getClientOriginalName());
-            //      $peminjaman->surat_pinjam = $request->file('surat_pinjam')->getClientOriginalName();
-            //      $peminjaman->save();    
-            //  }
-
-    //          return redirect('/peminjaman/form')->with('success', 'Data Berhasil Ditambahkan!');
-               
-    //     }
-
+   
+    
+       
+// INPUT PEMINJAMAN
     public function create(Request $request)
     {  
         // dd($request);
@@ -276,15 +286,15 @@ class PeminjamanController extends Controller
         // }
     for($i=0; $i< $jml; $i++)
         { $b = Barang::where('id',$barangs_id[$i])->first();
-            if($b->jumlah < $jumlah_pinjam[$i])
+            if($b->jumlah < $jumlah_pinjam[$i]  )
             {
-                        return redirect()->back()->with('warning', 'maaf jumlah barang yang anda pinjam melebihi dari sisa stok yang ada');
+                        return redirect()->back()->with('warning', 'Maaf jumlah barang yang anda pinjam melebihi dari sisa stok yang ada');
 
-            }
-            else
-            {
-                if($b->jenis_asets_id ==1 && $jumlah_pinjam[$i] > 1 || $b->jenis_asets_id ==3 && $jumlah_pinjam[$i] > 1 ){
-                        return redirect()->back()->with('warning', 'maaf barang bergerak, elektronik, peralatan max pinjam per item 1!');
+            // }
+            // else
+            // {
+            //     if(($b->jenis_asets_id ==1 || $b->jenis_asets_id ==3 )&&   $jumlah_pinjam > 1)   {
+            //             return redirect()->back()->with('warning', 'Maaf barang bergerak, elektronik, peralatan max pinjam per item 1!');
 
             }
             
@@ -296,8 +306,22 @@ class PeminjamanController extends Controller
             $dtpeminjaman->status_peminjamans_id = $request->status_peminjamans_id;
             $dtpeminjaman->barangs_id = $barangs_id[$i];
             $dtpeminjaman ->jumlah_pinjam = $jumlah_pinjam[$i];
-            $dtpeminjaman->save();}
+            $dtpeminjaman->save();
         }
+
+        // $datadetail = DetailPeminjaman::where('kode_peminjaman',  $book_id)->get();
+        // foreach($datadetail as $d){
+        //     $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
+        //     DetailPeminjaman::where('kode_peminjaman', $dtpeminjaman->kode_peminjaman)->get(); as $d {
+                
+        //       foreach(Barang::where('id',  $d->barangs_id)->get() as $b) 
+        // {
+        //     $b->jumlah -= (int)$d->jumlah_pinjam;
+        //     $b->save();
+
+        // }
+        // }
+    }
         $peminjaman =new Peminjaman();
             $peminjaman->kode_peminjaman = $book_id;
             $peminjaman ->users_id = $request->users_id;
@@ -312,15 +336,16 @@ class PeminjamanController extends Controller
             {
                  $request->file('surat_pinjam')->move('surat/', $request->file('surat_pinjam')->getClientOriginalName());
                  $peminjaman->surat_pinjam = $request->file('surat_pinjam')->getClientOriginalName();
-                 $peminjaman->save();    
+                 $peminjaman->save();  
+
              }
-            
- 
-    
-        return redirect('/peminjaman/form')->with('success', 'Data Berhasil Ditambahkan!');
+      $id =$peminjaman->kode_peminjaman ;
+        return redirect('peminjaman/konfirmasi/'.$id)->with('success', 'Data Berhasil Ditambahkan!');
                }
-    }
-    
+            
+            
+            
+            
 
      public function download(Request $request, $surat_pinjam)
     {
@@ -329,32 +354,24 @@ class PeminjamanController extends Controller
 
        
     }
-
-
-
-    // public function status_setuju($id)
-    // {
-    //     $datapinjam = Peminjaman::find($id);
-    //     $datapinjam->status_konfirmasis_id = 2;
-    //     $datapinjam->save();
-    //     $databarang= Barang::where('id', $datapinjam->barangs_id)->first();
-    //     $databarang->jumlah -= (int)$datapinjam->jumlah_pinjam;
-    //     $databarang->save();
-    //     return redirect('/peminjaman/riwayat')->with('success', 'Disetujui');
-    // }
-
-  
+// UBAH STATUS KONFIRMASI KEPALA UNIT
     public function status_ditolak($kode_peminjaman)
     {
-        $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
-        foreach($datadetail as $d){
+        // $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
+        foreach(DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get() as $d){
             $d->status_konfirmasis_id = 3;
             $d->save();
 
+        foreach(Barang::where('id', $d->barangs_id)->get() as $b) //perulngan dimana id barang = barangs_id yg ada di detail peminjaman
+        {
+            $b->jumlah += (int)$d->jumlah_pinjam;
+            $b->save();
 
+        }
         }
         return redirect()->back()->with('warning', 'Peminjaman di tolak');
     }
+
 
      public function status_setuju($kode_peminjaman)
     {
@@ -368,11 +385,12 @@ class PeminjamanController extends Controller
         return redirect()->back()->with('success', 'Peminjaman disetujui');
     }
 
-        public function status_barangdiambil($kode_peminjaman)
+// UBAH STATUS KONFIRMASI STAFF 
+        public function status_pengajuan($kode_peminjaman) 
     {
         // $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
         foreach(DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get() as $d){
-            $d->status_peminjamans_id = 2;
+            $d->status_konfirmasis_id = 1;
             $d->save();
 
         foreach(Barang::where('id', $d->barangs_id)->get() as $b) //perulngan dimana id barang = barangs_id yg ada di detail peminjaman
@@ -382,13 +400,43 @@ class PeminjamanController extends Controller
 
         }
         }
-        return redirect()->back()->with('success', 'barang telah dipinjam');
-
-
+         return redirect('/staff/peminjaman/')->with('success', 'Peminjaman berhasil diajukan!');
+       
 
     }
 
-     public function status_kembali($kode_peminjaman)
+     public function status_batal($kode_peminjaman)
+    {
+        // $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
+        foreach(DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get() as $d){
+            $d->status_konfirmasis_id = 5;
+            $d->save();
+
+        foreach(Barang::where('id', $d->barangs_id)->get() as $b) //perulngan dimana id barang = barangs_id yg ada di detail peminjaman
+        {
+            $b->jumlah += (int)$d->jumlah_pinjam;
+            $b->save();
+
+        }
+        }
+        return redirect()->back()->with('success', 'pengajuan berhasil dibatalkan');
+    }
+
+    // UBAH STATUS KONFIRMASI STAFF 
+
+public function status_barangdiambil($kode_peminjaman)
+    {
+        $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
+        foreach($datadetail as $d){
+            $d->status_peminjamans_id = 2;
+            $d->save();
+
+
+        }
+        return redirect()->back()->with('success', 'Barang telah dipinjam');
+    }
+
+    public function status_kembali($kode_peminjaman)
     {
         // $datadetail = DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get();
         foreach(DetailPeminjaman::where('kode_peminjaman', $kode_peminjaman)->get() as $d){
@@ -402,7 +450,7 @@ class PeminjamanController extends Controller
 
         }
         }
-        return redirect()->back()->with('success', 'peminjaman selesai');
+        return redirect()->back()->with('success', 'Peminjaman Selesai & Barang telah dikembalikan ');
     }
 
     // public function hapuspeminjaman($kode_peminjaman)
@@ -410,7 +458,7 @@ class PeminjamanController extends Controller
     //     foreach Peminjaman::where('kode_peminjaman', $kode_peminjaman)->get()
     //         $peminjaman= Peminjaman::find($id);
     //         $peminjaman->delete();
-    //         return redirect('/pemi')->with('success', 'Data Berhasil Dihapus!');
+    //         return redirect('/peminjaman/peminjaman')->with('success', 'Data Berhasil Dihapus!');
     //     }
 
 

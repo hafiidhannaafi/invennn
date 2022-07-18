@@ -18,7 +18,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Peminjaman</h5>
+                        <h5 class="card-title">Data Riwayat Peminjaman</h5>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -40,14 +40,14 @@
                                 $nomor = 1;
                                 ?>
                                 @foreach ($peminjaman as $data)
-                                    @if ($data->tgl_kembali <= date('Y-m-d'))
+                                    @if ($data->status_peminjamans_id == 3)
                                         <tr>
                                             <th>{{ $nomor++ }}</th>
                                             <td> {{ $data->kode_peminjaman }}</td>
                                             <td> {{ $data->nama_peminjam }}</td>
                                             <td> <?php echo date('d F Y', strtotime($data->tgl_pengajuan)); ?> </td>
                                             <td>
-                                                <a href="/detailbarang/{{ $data->kode_peminjaman }}"
+                                                <a href="/detailriwayatadmin/{{ $data->kode_peminjaman }}"
                                                     style="  background-color:   #012970; color:#FFFFFF" button
                                                     type="button" class="btn btn-sm"><i class="bi bi-eye"></i></a>
                                             </td>
@@ -84,7 +84,7 @@
                                             </td>
 
 
-                                            <td>
+                                            {{-- <td>
                                                 <a href="/peminjaman/edit/{{ $data->id }}" type="button"
                                                     class="btn btn-sm"
                                                     style="background-color: #05b3c3; color:#FFFFFF"><i
@@ -92,7 +92,7 @@
                                                 <a href="/peminjaman/hapus/{{ $data->id }}"
                                                     onclick="return confirm('Hapus Data?')" type="button"
                                                     class="btn btn-danger btn-sm"><i class="bi bi-trash delete"></i></a>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endif
                                 @endforeach

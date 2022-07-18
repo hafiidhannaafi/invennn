@@ -47,7 +47,7 @@
                                         <td> {{ $data->nama_peminjam }}</td>
                                         <td> <?php echo date('d F Y', strtotime($data->tgl_pengajuan)); ?> </td>
                                         <td>
-                                            <a href="/detailbarang/{{ $data->kode_peminjaman }}"
+                                            <a href="/detailbarangadmin/{{ $data->kode_peminjaman }}"
                                                 style="  background-color:   #012970; color:#FFFFFF" button
                                                 type="button" class="btn btn-sm"><i class="bi bi-eye"></i></a>
                                         </td>
@@ -63,6 +63,12 @@
                                                 <span class="badge bg-success">
                                                     {{ $status->status_konfirmasis->status_konfirmasi }}</span>
                                             @elseif($status->status_konfirmasis_id == 3)
+                                                <span class="badge bg-danger">
+                                                    {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                            @elseif($status->status_konfirmasis_id == 4)
+                                                <span class="badge bg-secondary">
+                                                    {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                            @elseif($status->status_konfirmasis_id == 5)
                                                 <span
                                                     class="badge bg-danger">{{ $status->status_konfirmasis->status_konfirmasi }}</span>
                                             @endif
@@ -92,15 +98,18 @@
                                                         class="bi bi-bag-check-fill"></i></a>
                                                 <!--STATUS PENGEMBALIAN-->
                                                 <a href="/status_kembali/{{ $data->kode_peminjaman }}" type="button"
-                                                    class="btn btn-info btn-sm"><i
-                                                        class="bi bi-person-check-fill"></i></a>
-                                            @elseif ($status->status_peminjamans_id == 3 && $status->status_konfirmasis_id == 2)
+                                                    class="btn btn-info btn-sm"><i class="bi bi-person-check-fill"
+                                                        style=" color:#FFFFFF"></i></a>
+                                            @elseif ($status->status_peminjamans_id == 2 || $status->status_peminjamans_id == 3)
+                                                <span class="badge border-dark border-1 text-dark small fst-italic"
+                                                    style="color:#012970;">sudah
+                                                    diverifikasi</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="/peminjaman/edit/{{ $data->id }}" type="button"
+                                            {{-- <a href="/peminjaman/edit/{{ $data->id }}" type="button"
                                                 class="btn btn-sm" style="background-color: #05b3c3; color:#FFFFFF"><i
-                                                    class="bi bi-pencil"></i></a>
+                                                    class="bi bi-pencil"></i></a> --}}
                                             <a href="/peminjaman/hapus/{{ $data->id }}"
                                                 onclick="return confirm('Hapus Data?')" type="button"
                                                 class="btn btn-danger btn-sm"><i class="bi bi-trash delete"></i></a>

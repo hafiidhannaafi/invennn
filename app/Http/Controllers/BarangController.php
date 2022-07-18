@@ -32,7 +32,7 @@ class BarangController extends Controller
        
     }
 
-    public function formasetbergerak()//bergerak
+    public function formasetbergerak()// formbergerak
     {
         $dataasalperolehan = DataAsalPerolehan::all();
         $datajenisaset = DataJenisAset::all();
@@ -50,7 +50,7 @@ class BarangController extends Controller
        
     }
 
-    public function formperalatan()//peralatan
+    public function formperalatan()// form peralatan
     {
         $dataasalperolehan = DataAsalPerolehan::all();
         $datajenisaset = DataJenisAset::all();
@@ -68,7 +68,7 @@ class BarangController extends Controller
        
     }
 
-    public function formperlengkapan()//perlengkapan
+    public function formperlengkapan()// form perlengkapan
     {
         $dataasalperolehan = DataAsalPerolehan::all();
         $datajenisaset = DataJenisAset::all();
@@ -179,6 +179,24 @@ class BarangController extends Controller
         
      }
 
+      public function asetbergerak()
+     {
+         $dataasalperolehan = DataAsalPerolehan::all();
+         $datajenisaset = DataJenisAset::all();
+         $jenisbarang = JenisBarang::all();
+         $datasatuan = Satuan::all();
+         $inputbarang = Barang::all();
+         return view('aset.bergerak',[
+             "title" => "asetbergerak",
+             "jenisbarang" => $jenisbarang,
+             "jenisaset" => $datajenisaset,
+             "dataasalperolehan" => $dataasalperolehan,
+             "datasatuan" =>$datasatuan,
+             "inputbarang"=> $inputbarang
+         ]);
+        
+     }
+
      public function laporanasetbergerak()
      {
          $dataasalperolehan = DataAsalPerolehan::all();
@@ -187,7 +205,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('laporan.asetbergerak',[
-             "title" => "peralatan",
+             "title" => "laporanasetbergerak",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -205,7 +223,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('aset.tidakbergerak',[
-             "title" => "peralatan",
+             "title" => "asettidakbergerak",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -223,7 +241,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('laporan.asettidakbergerak',[
-             "title" => "peralatan",
+             "title" => "laporanasettidakbergerak",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -241,7 +259,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('aset.peralatan',[
-             "title" => "peralatan",
+             "title" => "asetperalatan",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -259,7 +277,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('laporan.peralatan',[
-             "title" => "peralatan",
+             "title" => "laporanasetperalatan",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -277,7 +295,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('aset.perlengkapan',[
-             "title" => "perlengkapan",
+             "title" => "asetperlengkapan",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -295,7 +313,7 @@ class BarangController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          return view('laporan.perlengkapan',[
-             "title" => "perlengkapan",
+             "title" => "laporanasetperlengkapan",
              "jenisbarang" => $jenisbarang,
              "jenisaset" => $datajenisaset,
              "dataasalperolehan" => $dataasalperolehan,
@@ -438,33 +456,38 @@ class BarangController extends Controller
         $inputbarang = \App\Models\Barang::find($id);
         
         // $inputbarang->update($request);
-         $inputbarang =new Barang();
-              $inputbarang->jenis_asets_id =$request->jenis_asets_id;
-              $inputbarang ->jenis_barangs_id = $request->jenis_barangs_id;
-             $inputbarang ->asal_perolehans_id = $request->asal_perolehans_id;
-            $inputbarang ->satuans_id = $request->satuans_id ;
-            $inputbarang ->kode = $request->kode;
-             $inputbarang ->spesifikasi= $request->spesifikasi;
-             $inputbarang ->foto = $request->foto;
-             $inputbarang ->kegunaan = $request->kegunaan;
-             $inputbarang ->tanggal_perolehan = $request->tanggal_perolehan;
-              $inputbarang->nilai_perolehan = $request->nilai_perolehan;
-              $inputbarang ->legalitas = $request->legalitas ;
-             $inputbarang ->luas= $request->luas;
-            $inputbarang ->beban_penyusutan = $request->beban_penyusutan;
-            $inputbarang ->nilai_buku = $request->nilai_buku ;
-             $inputbarang ->lokasi= $request->lokasi;
-             $inputbarang ->penanggung_jawab = $request->penanggung_jawab ;
-             $inputbarang ->jumlah_awal = $request->jumlah_awal;
-               $inputbarang ->jumlah = $request->jumlah_awal;
-             $inputbarang ->kondisi = $request->kondisi;
-               $inputbarang ->ket = $request->ket;
+        //  $inputbarang =new Barang();
+        if($request->file('foto')==""){
+          $inputbarang->update([
 
-        if($request->hasFile('foto')) 
+        //         'jenis_asets_id' => $request->input ('jenis_asets_id'),
+             'jenis_barangs_id' => $request->input ('jenis_barangs_id'),
+            'asal_perolehans_id' => $request->input('asal_perolehans_id'),
+           'satuans_id' => $request->input ('satuans_id'),
+            'kode' => $request->input ('kode'),
+             'spesifikasi'=> $request->input ('spesifikasi'),
+            //  'foto' => $request->input ('foto'),
+             'kegunaan' => $request->input ('kegunaan'),
+             'tanggal_perolehan' => $request->input ('tanggal_perolehan'),
+              'nilai_perolehan' => $request->input ('nilai_perolehan'),
+              'legalitas' => $request->input ('legalitas'),
+             'luas'=> $request->input ('luas'),
+           'beban_penyusutan' => $request->input ('beban_penyusutan'),
+            'nilai_buku' =>$request->input ('nilai_buku'),
+            'lokasi'=> $request->input ('lokasi'),
+             'penanggung_jawab' => $request-> input ('penanggung_jawab'),
+             'jumlah_awal' => $request-> input ('jumlah_awal'),
+               'jumlah' => $request->input ('jumlah_awal'),
+           'kondisi' => $request->input ('kondisi'),
+               'ket' => $request->input ('ket'),
+          ]);
+        }
+      
+        elseif($request->hasFile('foto')) 
         {
              $request->file('foto')->move('fotobarang/', $request->file('foto')->getClientOriginalName());
              $inputbarang->foto = $request->file('foto')->getClientOriginalName();
-             $inputbarang->update();
+             $inputbarang->update(['foto' => $request->file('foto')]);
         }
     
             
@@ -493,12 +516,12 @@ class BarangController extends Controller
 }
 
     //HAPUS DATA
-    public function hapusdataaset($id)
-    {
-        $inputbarang=  Barang::find($id);
-        $inputbarang->delete();
-        return redirect('/data-aset')->with('success', 'Data Berhasil Dihapus!');
-    }
+    // public function hapusdataaset($id)
+    // {
+    //     $inputbarang=  Barang::find($id);
+    //     $inputbarang->delete();
+    //     return redirect('/data-aset')->with('success', 'Data Berhasil Dihapus!');
+    // }
 
     public function hapusasetbergerak($id)
     {
@@ -522,9 +545,3 @@ class BarangController extends Controller
     }
 }
 
-//KODE
-    $data = Barang::max('kode');
-            $huruf = "LPTP";
-            $urutan = (int)substr($data, 3, 3);
-            $urutan++;
-            $barang_id = $huruf . sprintf("%04s", $urutan);

@@ -33,16 +33,17 @@
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
-                                            <th scope="col">No</th>
+                                            <th scope="col sm">No</th>
                                             <th scope="col">Kode </th>
                                             <th scope="col">Nama </th>
-
                                             <th scope="col">Tgl Pengajuan</th>
                                             <th scope="col">Tgl Peminjaman</th>
                                             <th scope="col">Tgl Pengembalian</th>
                                             <th scope="col">Detail</th>
-                                            <th scope="col">Status Konfirmasi</th>
-                                            <th scope="col">Status Peminjaman</th>
+
+                                            <th scope="col">Status </th>
+
+                                            <th scope="col">Aksi</th>
 
 
                                         </tr>
@@ -53,7 +54,7 @@
                                         $nomor = 1;
                                         ?>
                                         @foreach ($peminjaman as $data)
-                                            {{-- @if ($data->tgl_kembali <= date('Y-m-d') || $data->status_konfirmasis_id == 1 || $data->status_konfirmasis_id == 2 || $data->status_peminjamans_id == 1 || $data->status_peminjamans_id == 2) --}}
+                                            {{-- @if ($data->status_konfirmasis_id == 1 || ($data->status_konfirmasis_id == 2 && $data->status_peminjamans_id == 1) || $data->status_peminjamans_id == 2) --}}
                                             <th>{{ $nomor++ }}</th>
                                             <td> {{ $data->kode_peminjaman }}</td>
                                             <td> {{ $data->nama_peminjam }}</td>
@@ -75,19 +76,17 @@
 
 
                                                 @if ($waktu < 0)
-                                                    <p style="color:#cd0b30;">Sudah Terlewat {{ -$waktu }}
+                                                    <p style="color:#cd0b30;" class="small fst-italic">Sudah
+                                                        Terlewat {{ -$waktu }}
                                                         hari</p>
                                                 @elseif($waktu > 0)
-                                                    <p style="color:#3d6124;"><b>
+                                                    <p style="color:#012970;" class="small fst-italic"><b>
                                                             {{ $waktu }} Hari Lagi </b>
                                                     </p>
                                                 @else
-                                                    <p style="color:#3d6124;"><b>Hari Terakhir</b></p>
+                                                    <p style="color:#012970;" class="small fst-italic"><b>Hari
+                                                            Terakhir</b></p>
                                                 @endif
-
-
-
-
 
 
                                             </td>
@@ -100,44 +99,80 @@
                                             </td>
 
 
-
                                             @php
                                                 $status = App\Models\DetailPeminjaman::where('kode_peminjaman', $data->kode_peminjaman)->first();
                                             @endphp
-
-                                            @if ($status->status_konfirmasis_id == 1)
-                                                <td><span class="badge bg-secondary">
+                                            <td>
+                                                @if ($status->status_konfirmasis_id == 1)
+                                                    <span class="badge bg-secondary">
                                                         {{ $status->status_konfirmasis->status_konfirmasi }}</span>
-                                                </td>
-                                            @elseif($status->status_konfirmasis_id == 2)
-                                                <td><span class="badge bg-success">
+                                                @elseif($status->status_konfirmasis_id == 2)
+                                                    <span class="badge bg-success">
                                                         {{ $status->status_konfirmasis->status_konfirmasi }}</span>
-                                                </td>
-                                            @elseif($status->status_konfirmasis_id == 3)
-                                                <td><span
+                                                @elseif($status->status_konfirmasis_id == 3)
+                                                    <span class="badge bg-danger">
+                                                        {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                                @elseif($status->status_konfirmasis_id == 4)
+                                                    <span class="badge bg-secondary">
+                                                        {{ $status->status_konfirmasis->status_konfirmasi }}</span>
+                                                @elseif($status->status_konfirmasis_id == 5)
+                                                    <span
                                                         class="badge bg-danger">{{ $status->status_konfirmasis->status_konfirmasi }}</span>
-                                                </td>
-                                            @endif
-
-                                            @if ($status->status_konfirmasis_id == 2)
-                                                @if ($status->status_peminjamans_id == 1)
-                                                    <td><span class="badge bg-secondary">
-                                                            {{ $status->status_peminjamans->status_peminjamans }}</span>
-                                                    </td>
-                                                @elseif($status->status_peminjamans_id == 2)
-                                                    <td><span class="badge bg"
-                                                            style="background-color: #FFA500; color:#FFFFFF">
-                                                            {{ $status->status_peminjamans->status_peminjamans }}</span>
-                                                    </td>
-                                                @elseif($status->status_peminjamans_id == 3)
-                                                    <td><span
-                                                            class="badge bg-info">{{ $status->status_peminjamans->status_peminjamans }}</span>
-                                                    </td>
                                                 @endif
+
+                                                @if ($status->status_konfirmasis_id == 2)
+                                                    @if ($status->status_peminjamans_id == 1)
+                                            <td><span class="badge bg-secondary">
+                                                    {{ $status->status_peminjamans->status_peminjamans }}</span>
+                                            </td>
+                                        @elseif($status->status_peminjamans_id == 2)
+                                            <td><span class="badge bg" style="background-color: #FFA500; color:#FFFFFF">
+                                                    {{ $status->status_peminjamans->status_peminjamans }}</span>
+                                            </td>
+                                        @elseif($status->status_peminjamans_id == 3)
+                                            <td>
+
+                                                <?php
+                                                $d = Carbon\Carbon::parse($data->tgl_kembali);
+                                                $e = Carbon\Carbon::parse(now());
+                                                if ($d >= $e) {
+                                                    $waktu = $d->diffInDays($e) + 1;
+                                                } else {
+                                                    $waktu = -$d->diffInDays($e);
+                                                } ?>
+
+
+                                                @if ($waktu < 0)
+                                                    <span
+                                                        class="badge bg-danger">{{ $status->status_peminjamans->status_peminjamans }}</span>
+                                                @elseif($waktu >= 0)
+                                                    <span
+                                                        class="badge bg-info">{{ $status->status_peminjamans->status_peminjamans }}</span>
+                                                @endif
+
+
+                                                {{-- <span
+                                                            class="badge bg-info">{{ $status->status_peminjamans->status_peminjamans }}</span> --}}
+
+
+                                            </td>
+                                        @endif
+                                        @endif
+                                        </td>
+                                        </td>
+
+                                        <td>
+                                            @if ($status->status_konfirmasis_id == 1)
+                                                <a href="/status_batal/{{ $data->kode_peminjaman }}" type="button"
+                                                    class="btn btn-danger btn-sm">
+                                                    batalkan</a>
+                                            @elseif ($status->status_konfirmasis_id == 2 || $status->status_konfirmasis_id == 5)
                                             @endif
 
-                                            </tr>
-                                            {{-- @endif --}}
+                                        </td>
+
+                                        </tr>
+                                        {{-- @endif --}}
                                         @endforeach
                                     </tbody>
                                 </table>

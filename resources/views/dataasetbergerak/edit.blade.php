@@ -9,14 +9,7 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        {{-- <h1>Data Jenis Aset</h1> --}}
-        {{-- <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Tables</li>
-          <li class="breadcrumb-item active">Data</li>
-        </ol>
-      </nav> --}}
+
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -129,11 +122,19 @@
                                         {{-- <option selected>Silakan Pilih Asal Perolehan</option> --}}
 
 
+
+                                        {{-- @foreach ($dataasalperolehan as $data)
+                                            <option value="{{ $data->id }}"
+                                                {{ old('asal_perolehans_id', $inputbarang->asal_perolehans_id) == $data->id ? 'selected' : null }}>
+                                                {{ $data->nama_asalperolehan }}
+                                            </option>
+                                        @endforeach --}}
+
                                         <?php
-                                        foreach ($dataasalperolehan as $data) {
-                                            echo "<option value='$data->id'";
-                                            echo $inputbarang['asal_perolehans_id'] == $data->id ? 'selected' : '';
-                                            echo ">$data->nama_asalperolehan</option>";
+                                        foreach ($dataasalperolehan as $asal) {
+                                            echo "<option value='$asal->id'";
+                                            echo $inputbarang['asal_perolehans_id'] == $asal->id ? 'selected' : '';
+                                            echo ">$asal->nama_asalperolehan </option>";
                                         }
                                         ?>
 
@@ -230,10 +231,11 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah</label>
+                                    <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah
+                                        awal</label>
                                     <div class="col-sm-10">
                                         <input type="text" value="{{ $inputbarang->jumlah_awal }}"
-                                            id=" " name="jumlah_awal" class="form-control" required readonly>
+                                            id=" " name="jumlah_awal" class="form-control" required>
                                         <div class="invalid-feedback">
                                             Harus di isi
                                         </div>

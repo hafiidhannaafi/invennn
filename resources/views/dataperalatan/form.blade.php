@@ -241,10 +241,10 @@
 
                                 <div class="row mb-3">
                                     <label for="validationTooltip04" class="col-sm-2 col-form-label">Jumlah
-                                        Barang</label>
+                                        awal</label>
                                     <div class="col-sm-10">
-                                        <input type="text" id="validationTooltip04" name="jumlah_awal"
-                                            class="form-control" required>
+                                        <input type="text" id="validationTooltip04" value="1"
+                                            name="jumlah_awal" class="form-control" required readonly>
                                         <div class="invalid-feedback">
                                             Harus di isi
                                         </div>

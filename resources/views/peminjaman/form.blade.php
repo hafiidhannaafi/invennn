@@ -29,6 +29,7 @@
                 $(this).closest('.entry').remove();
                 return false;
             });
+
             $('#tgl_pinjam').on('input', function() {
                 $('#tgl_kembali').attr('min', this.value);
             });
@@ -178,7 +179,7 @@
                     <div class="row mb-3">
                         <label for="validationTooltip05" class="col-sm-2 col-form-label">Tgl Pengajuan</label>
                         <div class="col-sm-10">
-                            <input type="date" id="validationTooltip05" name="tgl_pengajuan" value="<?php echo date('Y-m-d'); ?>"
+                            <input type="date" id="tgl_pengajuan" name="tgl_pengajuan" value="<?php echo date('Y-m-d'); ?>"
                                 readonly class="form-control" required>
                             <div class="invalid-feedback">
                                 Harus di isi
@@ -230,7 +231,7 @@
                     <div class="row mb-3">
                         {{-- <label for="validationTooltip04" class="col-sm-2 col-form-label">Status Konfirmasi</label> --}}
                         <div class="col-sm-10">
-                            <input type="hidden" id="validationTooltip04" value="1" name="status_konfirmasis_id"
+                            <input type="hidden" id="validationTooltip04" value="4" name="status_konfirmasis_id"
                                 class="form-control"required>
                             <div class="invalid-feedback">
                                 Harus di isi
@@ -253,21 +254,18 @@
                     <div class="row g-3 mt-3 border-top pt-2">
                         <div class="row targetDiv" id="div0">
                             <div id="group1" class="fvrduplicate">
-                                <label for="validationTooltip06" class="col-sm-6 col-form-label">Barang Pinjam</label>
-                                {{-- <h6 for="validationTooltip06" class="col-sm-6 col-form-label">( tekan tombol + jika
-                                    barang yang dipinjam lebih dari 1)</h6> --}}
+                                <label for="validationTooltip06" style="float: center; " col-sm-6
+                                    col-form-label>Peminjaman
+                                    Barang</label>
 
 
-                                {{-- <div class="form-group form-floating-label">
-                                    <label>Jenis Barang</label>
-                                    <select name="select_jenisbarang" class="form-control input-lg dynamic"
-                                        id="select_jenisbarang">
-                                        <option value=""></option>
-                                        @foreach ($jenisbarang as $data)
-                                            <option value="{{ $data->id }}">{{ $data->jenis_barang }}</option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
+                                <p class="small fst-italic">note : <br>- tekan tombol + jika
+                                    barang yang dipinjam lebih dari 1. <br>
+                                    - khusus kendaraan, mesin, dan elektronik max
+                                    pinjam 1 item
+                                    per barang </p>
+
+
 
                                 <div class="row entry my-2">
                                     <div class="col-md-5">
@@ -276,11 +274,13 @@
                                             <select class="form-control selectpicker" data-live-search="true"
                                                 name="barangs_id[]" id="barangs_id[]"
                                                 aria-label="Default select example">
+
                                                 {{-- <select class="form-select" name="barangs_id" id="validationTooltip06" aria-label="Default select example"> --}}
                                                 <option selected>Pilih Nama Barang</option>
 
                                                 @foreach ($inputbarang as $data)
-                                                    @if (($data->jenis_asets_id == 1 || $data->jenis_asets_id == 3 || $data->jenis_asets_id == 4) && $data->jumlah > 0)
+                                                    @if (($data->jenis_asets_id == 1 || $data->jenis_asets_id == 3 || $data->jenis_asets_id == 4) &&
+                                                        $data->jumlah > 0)
                                                         <option value="{{ $data->id }}"> {{ $data->kode }} -
                                                             {{ $data->jenis_barangs->jenis_barang }}
                                                             {{ $data->spesifikasi }}
@@ -291,9 +291,12 @@
                                         </div>
                                     </div>
                                     <div class="col-md-5">
-                                        <input class="form-control form-control" value=" " name="jumlah_pinjam[]"
-                                            type="number" placeholder=" jumlah item ">
+                                        <input class="form-control form-control" value=" "
+                                            id="jumlah_pinjam[] "name="jumlah_pinjam[]" type="number"
+                                            placeholder=" jumlah item ">
                                     </div>
+
+
 
                                     <div class="col-md-2">
                                         <button type="button" class="btn btn-success btn-sm btn-add">
@@ -369,7 +372,7 @@
 
                     <div class="card-footer">
                         <button style=" float :right; background-color:   #012970; color:#FFFFFF" type="submit"
-                            class="btn btn">Submit</button>
+                            class="btn btn btn-sm">Submit</button>
                     </div>
                 </form><!-- End General Form Elements -->
             </div>

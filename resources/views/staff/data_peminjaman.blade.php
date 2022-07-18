@@ -95,7 +95,7 @@
                                 </div>
                             @endforeach
                             <br>
-                            <a href="/peminjaman/pengajuan "
+                            <a href="/staff/peminjaman "
                                 style=" float :left; background-color:   #012970; color:#FFFFFF" button type="button"
                                 class="btn btn-sm">Kembali</a>
 

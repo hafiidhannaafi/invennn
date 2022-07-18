@@ -26,12 +26,12 @@
                                     </h5>
                                     <h5 class="card-title">Sistem Informasi Inventaris Barang Lembaga Pengembangan Pedesaan
                                         (LPTP) Surakarta</h5>
-                                         <a href="/cekdata" type="submit" class="btn btn"
+                                    {{-- <a href="/cekdata" type="submit" class="btn btn"
                                         style=" float :center; background-color:   #012970; color:#FFFFFF"> cek barang</a>
 
                                   
                                     <a href="/peminjaman/form" type="submit" class="btn btn"
-                                        style=" float :center; background-color:   #012970; color:#FFFFFF"> isi form</a>
+                                        style=" float :center; background-color:   #012970; color:#FFFFFF"> isi form</a> --}}
 
                         </div>
 

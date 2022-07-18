@@ -164,15 +164,14 @@
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
                         <div class="box">
                             <h3 style="color: #4a4df6;"> Aset bergerak</h3>
-                            {{-- <div class="price"><sup>$</sup>0<span> / mo</span></div> --}}
+
                             <img src="{{ asset('landingpages/assets/img/pricing-free.png') }}" class="img-fluid"
                                 alt="">
                             <ul>
 
                                 <li>seperti motor, mobil, sepeda</li>
                                 <li>contoh mobil dinas </li>
-                                {{-- <li class="na">Pharetra massa</li>
-                <li class="na">Massa ultricies mi</li> --}}
+
                             </ul>
 
                         </div>
@@ -180,16 +179,16 @@
 
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
                         <div class="box">
-                            {{-- <span class="featured">Aset tidak bergerak</span> --}}
+
                             <h3 style="color:#4a4df6;">Aset tidak bergerak</h3>
-                            {{-- <div class="price"><sup>$</sup>19<span> / mo</span></div> --}}
+
                             <img src="{{ asset('landingpages/assets/img/pricing-starter.png') }}" class="img-fluid"
                                 alt="">
                             <ul>
 
                                 <li>seperti tanah, gedung, rumah</li>
                                 <li>contoh gedung serba guna, rumah dinas</li>
-                                {{-- <li class="na">Massa ultricies mi</li> --}}
+
                             </ul>
 
                         </div>
@@ -198,7 +197,7 @@
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
                         <div class="box">
                             <h3 style="color: #4a4df6;">Aset Peralatan</h3>
-                            {{-- <div class="price"><sup>$</sup>29<span> / mo</span></div> --}}
+
                             <img src="{{ asset('landingpages/assets/img/pricing-business.png') }}"
                                 class="img-fluid" alt="">
                             <ul>
@@ -213,7 +212,7 @@
                     <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
                         <div class="box">
                             <h3 style="color: #4a4df6;">Aset Perlengkapan</h3>
-                            {{-- <div class="price"><sup>$</sup>49<span> / mo</span></div> --}}
+
                             <img src="{{ asset('landingpages/assets/img/pricing-ultimate.png') }}"
                                 class="img-fluid" alt="">
                             <ul>
@@ -329,11 +328,13 @@
                                     <p>Karyawan mengecek ketersediaan barang dan tanda bahwa barang tersebut boleh
                                         dipinjam</p>
                                     <h4>3. Mengisi Formulir peminjaman</h4>
-                                    <p> Mengisi data peminjaman barang serta mengupload surat peminjaman. Diharapkan
-                                        karyawan yang hendak meminjam mengisi form meminjaman jauh-jauh hari sebelum
-                                        penggunaan barang</p>
+                                    <p> Mengisi data peminjaman barang serta mengupload surat pengantar. Diharapkan
+                                        karyawan yang hendak staff mengajukan peminjaman jauh-jauh hari sebelum
+                                        penggunaan barang <br>
+                                       note : peminjaman barang bergerak, elektronik max 1 item per jenis barang</p>
+                                   
                                     <h4>4. Menunggu status persetujuan</h4>
-                                    <p> Memantau status pengajuan dibagian menu status atau riwayat peminjaman untuk
+                                    <p> Memantau status pengajuan untuk
                                         mengetahui pengajuan diterima atau ditolak. Memerlukan proses 3-5 hari</p>
                                     <h4>5. Mengambil barang</h4>
                                     <p> Apabila status peminjaman diterima, karyawan mengambil barang di kantor</p>

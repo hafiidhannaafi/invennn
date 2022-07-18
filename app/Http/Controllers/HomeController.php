@@ -27,6 +27,7 @@ class HomeController extends Controller
          $datasatuan = Satuan::all();
          $inputbarang = Barang::all();
          $peminjaman = DetailPeminjaman::all();
+           $inputbarangs = Barang::where( 'id', 1)->get();
         $role=Auth::user()->roles_id;
         
         // return $inputbarang;
@@ -39,6 +40,7 @@ class HomeController extends Controller
              "dataasalperolehan" => $dataasalperolehan,
              "datasatuan" =>$datasatuan,
              "inputbarang"=> $inputbarang,
+              "inputbarangs"=> $inputbarangs,
              "peminjaman"=> $peminjaman
          ]);
         }
